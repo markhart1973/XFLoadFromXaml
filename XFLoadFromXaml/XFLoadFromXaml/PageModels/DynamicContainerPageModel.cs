@@ -3,6 +3,7 @@ using System;
 using FreshMvvm;
 using XFLoadFromXaml.Infrastructure.Services;
 using Xamarin.Forms;
+using Xamarin.Forms.Dynamic;
 
 namespace XFLoadFromXaml.PageModels
 {
@@ -10,7 +11,7 @@ namespace XFLoadFromXaml.PageModels
         FreshBasePageModel
     {
         private readonly IPageService _pageService;
-        private JsonModel _boundData;
+        private DictionaryModel _boundData;
 
         public string DynamicTitle => "Dynamic Page";
 
@@ -38,7 +39,8 @@ namespace XFLoadFromXaml.PageModels
         {
             base.Init(initData);
             this.DynamicView = await _pageService.GetContent();
-            _boundData = this.DynamicView.BindingContext as JsonModel;
+
+            _boundData = this.DynamicView.BindingContext as DictionaryModel;
         }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)

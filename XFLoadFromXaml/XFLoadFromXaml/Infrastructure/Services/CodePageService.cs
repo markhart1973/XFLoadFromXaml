@@ -1,7 +1,8 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Dynamic;
+using XFLoadFromXaml.Infrastructure.Controls;
 
 namespace XFLoadFromXaml.Infrastructure.Services
 {
@@ -11,6 +12,8 @@ namespace XFLoadFromXaml.Infrastructure.Services
     {
         public async Task<ContentView> GetContent()
         {
+            await Task.Delay(1000);
+
             var content = new ContentView();
 
             var stackLayout = new StackLayout();
@@ -31,16 +34,38 @@ namespace XFLoadFromXaml.Infrastructure.Services
             entry.SetBinding(Entry.TextProperty, "MyValue");
             stackLayout.Children.Add(entry);
 
+            var picker = new ExtendedPicker
+            {
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.CenterAndExpand
+            };
+            picker.ItemsSource = new List<string>
+            {
+                " ",
+                "Number One",
+                "Number Two",
+                "Number Three"
+            };
+            picker.SetBinding(ExtendedPicker.SelectedItemProperty, "MyReason", BindingMode.TwoWay);
+            stackLayout.Children.Add(picker);
+
             content.Content = stackLayout;
 
-            var stream = this
-                .GetType()
-                .GetTypeInfo()
-                .Assembly
-                .GetManifestResourceStream(JsonNs);
-            var json = await new StreamReader(stream)
-                .ReadToEndAsync();
-            var model = JsonModel.Parse(json);
+            //var stream = this
+            //    .GetType()
+            //    .GetTypeInfo()
+            //    .Assembly
+            //    .GetManifestResourceStream(JsonNs);
+            //var json = await new StreamReader(stream)
+            //    .ReadToEndAsync();
+            //var model = JsonModel.Parse(json);
+
+            var model = new DictionaryModel(new Dictionary<string, object>
+            {
+                {"MyTitle", "This has come from dynamic data."},
+                {"MyValue", "This can be edited."},
+                {"MyReason", " "}
+            });
 
             content.BindingContext = model;
 
