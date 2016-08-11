@@ -38,8 +38,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Services\BasePageService.cs" />
+    <Compile Include="Infrastructure\Services\CodePageService.cs" />
     <Compile Include="Infrastructure\Services\IPageService.cs" />
-    <Compile Include="Infrastructure\Services\PageService.cs" />
+    <Compile Include="Infrastructure\Services\XamlPageService.cs" />
     <Compile Include="PageModels\DynamicContainerPageModel.cs" />
     <Compile Include="PageModels\MainPageModel.cs" />
     <Compile Include="Pages\DynamicContainerPage.xaml.cs">

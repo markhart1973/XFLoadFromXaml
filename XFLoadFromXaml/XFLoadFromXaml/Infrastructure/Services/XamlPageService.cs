@@ -5,7 +5,8 @@ using Xamarin.Forms;
 
 namespace XFLoadFromXaml.Infrastructure.Services
 {
-    public class PageService :
+    public class XamlPageService :
+        BasePageService,
         IPageService
     {
         public async Task<ContentView> GetContent()
@@ -15,16 +16,11 @@ namespace XFLoadFromXaml.Infrastructure.Services
 
             var content = new ContentView();
 
-            //const string xamlNs = "XFLoadFromXaml.Pages.MyDynamicPage.xaml";
-            //const string jsonNs = "XFLoadFromXaml.Pages.MyDynamicPage.json";
-            const string xamlNs = "XFLoadFromXaml.Pages.MyDynamicView.xaml";
-            const string jsonNs = "XFLoadFromXaml.Pages.MyDynamicView.json";
-
             var stream = this
                 .GetType()
                 .GetTypeInfo()
                 .Assembly
-                .GetManifestResourceStream(xamlNs);
+                .GetManifestResourceStream(XamlNs);
             var xaml = await new StreamReader(stream)
                 .ReadToEndAsync();
             content.LoadFromXaml(xaml);
@@ -33,7 +29,7 @@ namespace XFLoadFromXaml.Infrastructure.Services
                 .GetType()
                 .GetTypeInfo()
                 .Assembly
-                .GetManifestResourceStream(jsonNs);
+                .GetManifestResourceStream(JsonNs);
             var json = await new StreamReader(stream)
                 .ReadToEndAsync();
             var model = JsonModel.Parse(json);

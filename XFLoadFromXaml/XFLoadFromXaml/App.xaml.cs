@@ -22,7 +22,8 @@ namespace XFLoadFromXaml
 
         private static void SetupIoc()
         {
-            FreshIOC.Container.Register<IPageService, PageService>();
+            //FreshIOC.Container.Register<IPageService, XamlPageService>();
+            FreshIOC.Container.Register<IPageService, CodePageService>();
         }
 
         protected override void OnStart()
