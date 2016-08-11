@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FreshEssentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Dynamic;
-using XFLoadFromXaml.Infrastructure.Controls;
 
 namespace XFLoadFromXaml.Infrastructure.Services
 {

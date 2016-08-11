@@ -38,8 +38,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Controls\BindablePicker.cs" />
-    <Compile Include="Infrastructure\Controls\ExtendedPicker.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Services\BasePageService.cs" />
     <Compile Include="Infrastructure\Services\CodePageService.cs" />
@@ -70,6 +68,10 @@
   <ItemGroup>
     <Reference Include="ExifLib, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ExifLib.PCL.1.0.1\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+Xamarin.iOS10+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FreshEssentials, Version=1.0.5976.18464, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FreshEssentials.2.0.1\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\FreshEssentials.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FreshIOC, Version=1.0.5977.25641, Culture=neutral, processorArchitecture=MSIL">
@@ -117,6 +119,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Infrastructure\Controls\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
