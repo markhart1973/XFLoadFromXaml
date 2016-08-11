@@ -34,19 +34,19 @@ namespace XFLoadFromXaml.Infrastructure.Services
             entry.SetBinding(Entry.TextProperty, "MyValue");
             stackLayout.Children.Add(entry);
 
-            var picker = new ExtendedPicker
+            var picker = new BindablePicker
             {
                 VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.CenterAndExpand
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                ItemsSource = new List<string>
+                {
+                    " ",
+                    "Number One",
+                    "Number Two",
+                    "Number Three"
+                }
             };
-            picker.ItemsSource = new List<string>
-            {
-                " ",
-                "Number One",
-                "Number Two",
-                "Number Three"
-            };
-            picker.SetBinding(ExtendedPicker.SelectedItemProperty, "MyReason", BindingMode.TwoWay);
+            picker.SetBinding(BindablePicker.SelectedItemProperty, "MyReason", BindingMode.TwoWay);
             stackLayout.Children.Add(picker);
 
             content.Content = stackLayout;
