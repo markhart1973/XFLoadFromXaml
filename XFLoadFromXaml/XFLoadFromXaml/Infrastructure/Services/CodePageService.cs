@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using FreshEssentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Dynamic;
+using XFLoadFromXaml.Infrastructure.Controls;
 
 namespace XFLoadFromXaml.Infrastructure.Services
 {
@@ -13,6 +13,15 @@ namespace XFLoadFromXaml.Infrastructure.Services
         public async Task<ContentView> GetContent()
         {
             await Task.Delay(1000);
+
+            var modelDictionary = new DictionaryModel(new Dictionary<string, object>
+            {
+                {"MyTitle", "This has come from dynamic data."},
+                {"MyValue", "This can be edited."},
+                {"MyReason", " "},
+                {"MyHideable", "This control is hidden when Number Two is selected."},
+                {"MyHideableVisible", true}
+            });
 
             var content = new ContentView();
 
@@ -34,7 +43,29 @@ namespace XFLoadFromXaml.Infrastructure.Services
             entry.SetBinding(Entry.TextProperty, "MyValue");
             stackLayout.Children.Add(entry);
 
-            var picker = new BindablePicker
+            var hideable = new Label
+            {
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                VerticalOptions = LayoutOptions.Center
+            };
+            hideable.SetBinding(Label.TextProperty, "MyHideable");
+            //hideable.SetBinding(VisualElement.IsVisibleProperty, "MyHideableVisible", BindingMode.TwoWay);
+
+            var picker = new BindablePicker(o =>
+            {
+                var newItem = o as string;
+                if (!string.IsNullOrEmpty(newItem))
+                {
+                    if (newItem == "Number Two")
+                    {
+                        hideable.IsVisible = false;
+                    }
+                    else
+                    {
+                        hideable.IsVisible = true;
+                    }
+                }
+            })
             {
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
@@ -49,25 +80,10 @@ namespace XFLoadFromXaml.Infrastructure.Services
             picker.SetBinding(BindablePicker.SelectedItemProperty, "MyReason", BindingMode.TwoWay);
             stackLayout.Children.Add(picker);
 
+            stackLayout.Children.Add(hideable);
+
             content.Content = stackLayout;
-
-            //var stream = this
-            //    .GetType()
-            //    .GetTypeInfo()
-            //    .Assembly
-            //    .GetManifestResourceStream(JsonNs);
-            //var json = await new StreamReader(stream)
-            //    .ReadToEndAsync();
-            //var model = JsonModel.Parse(json);
-
-            var model = new DictionaryModel(new Dictionary<string, object>
-            {
-                {"MyTitle", "This has come from dynamic data."},
-                {"MyValue", "This can be edited."},
-                {"MyReason", " "}
-            });
-
-            content.BindingContext = model;
+            content.BindingContext = modelDictionary;
 
             return content;
         }

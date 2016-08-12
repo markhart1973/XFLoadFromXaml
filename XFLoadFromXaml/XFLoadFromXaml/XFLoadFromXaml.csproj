@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Controls\BindablePicker.cs" />
     <Compile Include="Infrastructure\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Infrastructure\Services\BasePageService.cs" />
     <Compile Include="Infrastructure\Services\CodePageService.cs" />
@@ -119,7 +120,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Infrastructure\Controls\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
